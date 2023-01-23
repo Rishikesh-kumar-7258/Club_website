@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import generics, viewsets
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .serializers import UserSerializer
 from .models import *
 from .serializers import *
@@ -17,16 +17,35 @@ class UserViewSet(viewsets.ModelViewSet):
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
-    permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = []
+        else:
+            permission_classes = [IsAdminUser]
+
+        return [permission() for permission in permission_classes]
 
 ################# Projects #######################
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsAdminUser]
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = []
+        else:
+            permission_classes = [IsAdminUser]
+
+        return [permission() for permission in permission_classes]
 
 ################# Events #######################
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [IsAdminUser]
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = []
+        else:
+            permission_classes = [IsAdminUser]
+
+        return [permission() for permission in permission_classes]

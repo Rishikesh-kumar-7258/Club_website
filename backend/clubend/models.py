@@ -15,6 +15,9 @@ class Member(models.Model):
     enrollment = models.CharField(max_length=100)
     user = models.ForeignKey(User, related_name='members', on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return self.user.username
+
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
@@ -26,6 +29,9 @@ class Project(models.Model):
     leader = models.ForeignKey(Member, related_name='leader', on_delete=models.CASCADE)
     isCompleted = models.BooleanField(default=False)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Event(models.Model):
     name = models.CharField(max_length=100)
@@ -36,3 +42,6 @@ class Event(models.Model):
     members = models.ManyToManyField(Member, related_name='events')
     leader = models.ForeignKey(Member, related_name='eventLeader', on_delete=models.CASCADE)
     isCompleted = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return self.name

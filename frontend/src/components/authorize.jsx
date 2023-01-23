@@ -1,7 +1,8 @@
 import { Stack } from '@mui/system'
-import { Tab, Tabs, TextField, Container, Box, Typography } from '@mui/material'
+import { Tab, Tabs, TextField, Box} from '@mui/material'
 import React from 'react'
 import PropTypes from "prop-types";
+import { Button } from '@mui/material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -15,7 +16,15 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3, width: "100%" }}>
+        <Box sx={{
+          backgroundColor : "white",
+          width : {
+            xs : "100vw",
+            sm : "100vw",
+            md : "70vw",
+            lg : "50vw",
+          }
+        }}>
           {children}
         </Box>
       )}
@@ -45,46 +54,49 @@ const Authorize = () => {
   }
 
   return (
-    <Container sx={{
-      color: "white"
+    <Box sx={{
+      backgroundColor : "#333333",
+      color: "white",
+      width : "100vw",
+      height : "100vh",
+      display : "flex",
+      alignItems : "center",
+      justifyContent : "center",
+      flexDirection : "column",
     }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, 
+        borderColor: 'divider',
+        backgroundColor : "white",
+        width : {
+          xs : "100vw",
+          sm : "100vw",
+          md : "70vw",
+          lg : "50vw",
+        }
+      }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Login" {...allyProps(0)} />
           <Tab label="SignUp" {...allyProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Stack component="form" sx={{
-          width: {
-            xm: '100%',
-            md: '80%',
-            lg: '50%'
-          }
-        }}>
-          <TextField id="fname" label="First Name" variant="filled" />
-          <TextField id="lname" label="Last Name" variant="filled" />
+        <Stack component="form">
           <TextField id="email" label="Email" variant="filled" type="email" />
           <TextField id="password" label="Password" variant="filled" type="password" />
-          <TextField id="password2" label="Re-Enter Password" variant="filled" type="password" />
+          <Button size="large" variant="contained">Login</Button>
         </Stack>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Stack component="form" sx={{
-          width: {
-            xm: '100%',
-            md: '80%',
-            lg: '50%'
-          }
-        }}>
+        <Stack component="form">
           <TextField id="fname" label="First Name" variant="filled" />
           <TextField id="lname" label="Last Name" variant="filled" />
           <TextField id="email" label="Email" variant="filled" type="email" />
           <TextField id="password" label="Password" variant="filled" type="password" />
           <TextField id="password2" label="Re-Enter Password" variant="filled" type="password" />
+          <Button size="large" variant="contained">Register</Button>
         </Stack>
       </TabPanel>
-    </Container>
+    </Box>
 
   )
 }
