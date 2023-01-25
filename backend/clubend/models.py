@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class Member(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
+    profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=100)

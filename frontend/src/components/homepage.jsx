@@ -14,8 +14,21 @@ import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import Carousel from "react-material-ui-carousel";
 import { ArrowRight, ArrowLeft } from "@mui/icons-material";
+import { GlobalContext } from "../App";
 
 const Home = () => {
+  const [users, setUsers] = React.useState([]);
+  const globalContext = React.useContext(GlobalContext);
+
+  React.useEffect(() => {
+    fetch("http://127.0.0.1:8000/members/6/")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        console.log(globalContext);
+      });
+  }, []);
+
   return (
     <Stack
       sx={{
@@ -153,25 +166,29 @@ const Home = () => {
           </Link>
         </Box>
         <Unstable_Grid container>
-          <Unstable_Grid item xm={12} sm={6} md={4}>
-            <Card>
-              <CardMedia
-                component="img"
-                image="https://source.unsplash.com/random/400x400?animal"
-              ></CardMedia>
-              <CardContent>
-                <Typography variant="h5">Member 1</Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Numquam nulla, assumenda iure et reiciendis iste dolore ipsum
-                  tempora molestias culpa?
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button>View</Button>
-              </CardActions>
-            </Card>
-          </Unstable_Grid>
+          {users.map((user) => {
+            return (
+              <Unstable_Grid item xm={12} sm={6} md={4} key={user.id}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    image={"http://127.0.0.1:8000" + user.profile_pic}
+                  ></CardMedia>
+                  <CardContent>
+                    <Typography variant="h5">{user.name}</Typography>
+                    <Typography variant="body1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Numquam nulla, assumenda iure et reiciendis iste dolore
+                      ipsum tempora molestias culpa?
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Link to={"/users/" + user.id}><Button>View</Button></Link>
+                  </CardActions>
+                </Card>
+              </Unstable_Grid>
+            );
+          })}
         </Unstable_Grid>
       </Box>
 
@@ -179,7 +196,7 @@ const Home = () => {
       <Box
         sx={{
           padding: 5,
-          height : 'fit-content'
+          height: "fit-content",
         }}
       >
         <Box
@@ -192,7 +209,7 @@ const Home = () => {
           <Typography variant="h4" fontWeight="800">
             Events
           </Typography>
-          <Link to="/evens" className="text-link">
+          <Link to="/events" className="text-link">
             See More
           </Link>
         </Box>

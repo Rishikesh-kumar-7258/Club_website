@@ -15,13 +15,15 @@ urlpatterns = [
     path('users/<int:pk>/update/', UserViewSet.as_view({'put': 'update'})),
     path('users/<int:pk>/delete/', UserViewSet.as_view({'delete': 'destroy'})),
     path('users/create/', UserViewSet.as_view({'post': 'create'})),
+    path('users/exist/', UserViewSet.as_view({'post' : 'authorize'})),
 
   # Members
     path('members/', MemberViewSet.as_view({'get': 'list'})),
-    path('members/<int:pk>/', MemberViewSet.as_view({'get': 'retrieve'})),
-    path('members/<int:pk>/update/', MemberViewSet.as_view({'put': 'update'})),
-    path('members/<int:pk>/delete/', MemberViewSet.as_view({'delete': 'destroy'})),
-    path('members/create/', MemberViewSet.as_view({'post': 'create'})),
+    path('member/<int:pk>/', MemberViewSet.as_view({'get': 'retrieve'})),
+    path('member/<int:pk>/update/', MemberViewSet.as_view({'put': 'update'})),
+    path('member/<int:pk>/delete/', MemberViewSet.as_view({'delete': 'destroy'})),
+    path('member/create/', MemberViewSet.as_view({'post': 'create'})),
+    path('members/<int:count>/', MemberViewSet.as_view({'get': 'get_members'})),
 
   # Projects
     path('projects/', ProjectViewSet.as_view({'get': 'list'})),
